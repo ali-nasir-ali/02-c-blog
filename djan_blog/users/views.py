@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .forms import UserRgistrationFrom
 
 def register_views(request):
@@ -19,5 +20,6 @@ def logo_views(request):
     messages.success(request, f'You have log out {username}!')
     return render(request, 'users/register.html', {'form': form})
 
-def about_views(request):   
-    return render(r'users/about.html')
+@login_required
+def profile_views(request):
+    return render(request, "users/profile.html", {'title':'about'}, status=200)
